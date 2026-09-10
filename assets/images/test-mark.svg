@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none">
+  <!-- Outer C Arc in slate/white for dark mode -->
+  <defs>
+    <filter id="coreGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Outer C shape -->
+  <!-- Outer circle r=130, inner cutout r=80, stroke-width=50 -->
+  <path d="M 330 155 A 130 130 0 1 0 330 345 A 25 25 0 0 0 300 305 A 80 80 0 1 1 300 195 A 25 25 0 0 0 330 155 Z" 
+        fill="#8a8f98" />
+
+  <!-- Inner Green Core Flow Shape -->
+  <!-- Circular center at (250,250) r=55, flaring out to right through opening -->
+  <path d="M 250 195 C 220 195 195 220 195 250 C 195 280 220 305 250 305 C 275 305 295 295 315 285 C 335 275 355 285 365 300 C 375 270 375 230 365 200 C 355 215 335 225 315 215 C 295 205 275 195 250 195 Z" 
+        fill="#00c853" />
+</svg>

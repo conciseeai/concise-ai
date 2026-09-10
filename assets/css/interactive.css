@@ -1,0 +1,789 @@
+/* ==========================================================================
+   CONCISE.AI — INTERACTIVE LEAD FLOW & SIMULATION ENGINE
+   Executive Circular Lead Flow, Workforce Pipeline, and ROI Calculator.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Hero Enterprise AI Workflow Console
+   -------------------------------------------------------------------------- */
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-visual-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-console-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(13, 17, 26, 0.85);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 40px -10px rgba(0, 200, 83, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hero-console-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+}
+
+/* Console Header */
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 16px;
+}
+
+.console-brand-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.console-brand-status img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.console-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.console-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 1.2;
+}
+
+.console-live-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--brand-green-light);
+  font-weight: 500;
+}
+
+.console-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-green);
+  box-shadow: 0 0 8px var(--brand-green);
+  animation: gentleBlink 2.5s infinite ease-in-out;
+}
+
+@keyframes gentleBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.console-badge-ver {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+/* Workflow Scenario Pills */
+.console-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(8, 11, 18, 0.6);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 20px;
+}
+
+.console-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 8px 6px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.console-tab-btn:hover {
+  color: var(--text-white);
+}
+
+.console-tab-btn.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Pipeline Steps */
+.console-pipeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 12px;
+}
+
+.pipeline-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(18, 24, 38, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.pipeline-step-card:hover {
+  border-color: var(--border-medium);
+  background: rgba(22, 30, 48, 0.75);
+}
+
+.pipeline-step-card.active-step {
+  border-color: rgba(0, 200, 83, 0.35);
+  background: rgba(0, 200, 83, 0.04);
+}
+
+.step-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-white);
+}
+
+.step-icon-wrap svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--brand-green-light);
+  fill: none;
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.step-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.step-tag {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--brand-green-light);
+  background: rgba(0, 200, 83, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.step-desc {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Connector Line */
+.pipeline-connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14px;
+  margin: -6px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.connector-line {
+  width: 1.5px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--border-medium), rgba(0, 200, 83, 0.6), var(--border-medium));
+}
+
+/* Console Telemetry Dock */
+.console-telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.telemetry-mini-pill {
+  background: rgba(8, 11, 18, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.telemetry-mini-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-white);
+  font-family: var(--font-mono);
+}
+
+.telemetry-mini-val.brand {
+  color: var(--brand-green-light);
+}
+
+.telemetry-mini-lbl {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Interactive Workflow Simulator ("Meet Your AI Workforce")
+   -------------------------------------------------------------------------- */
+.workflow-section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.workforce-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.workforce-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.workforce-btn .agent-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-green-light);
+  transition: all var(--transition-fast);
+}
+
+.workforce-btn .agent-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.workforce-btn .agent-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.workforce-btn:hover,
+.workforce-btn.active {
+  background: rgba(18, 23, 34, 0.95);
+  border-color: var(--border-medium);
+}
+
+.workforce-btn.active {
+  border-color: var(--brand-green);
+  box-shadow: 0 0 20px rgba(0, 200, 83, 0.2);
+}
+
+.workforce-btn.active .agent-icon {
+  background: var(--brand-green-dim);
+  box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
+}
+
+.workforce-btn.active .agent-name {
+  color: var(--text-white);
+}
+
+.agent-detail-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.agent-spec-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.agent-spec-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9375rem;
+}
+
+.agent-spec-item svg {
+  width: 18px;
+  height: 18px;
+  color: var(--brand-green);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.agent-preview-terminal {
+  background: #040508;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #334155;
+}
+
+.terminal-dot.red { background: #ef4444; }
+.terminal-dot.yellow { background: #f59e0b; }
+.terminal-dot.green { background: #00c853; }
+
+.terminal-message {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.terminal-user { color: var(--text-secondary); }
+.terminal-ai { color: var(--brand-green-light); }
+
+/* Animated Pipeline Track */
+.workflow-pipeline-wrapper {
+  background: #07090e;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.pipeline-steps-track {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.pipeline-step-node {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  text-align: center;
+  position: relative;
+  transition: all var(--transition-base);
+}
+
+.pipeline-step-node .step-badge {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.pipeline-step-node .step-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.pipeline-step-node.active {
+  border-color: var(--brand-green);
+  background: var(--brand-green-dim);
+  box-shadow: 0 0 20px rgba(0, 200, 83, 0.25);
+  transform: translateY(-2px);
+}
+
+.pipeline-step-node.active .step-title {
+  color: var(--text-white);
+}
+
+.pipeline-step-node.completed {
+  border-color: var(--brand-green-light);
+  background: rgba(0, 200, 83, 0.06);
+}
+
+.pipeline-step-node.completed .step-title {
+  color: var(--brand-green-light);
+}
+
+.simulation-log-box {
+  background: #030406;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simulation-log-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.simulation-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--brand-green);
+  box-shadow: 0 0 8px var(--brand-green);
+}
+
+/* --------------------------------------------------------------------------
+   3. Interactive ROI Calculator
+   -------------------------------------------------------------------------- */
+.roi-calculator-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: 44px;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(18px);
+}
+
+.roi-inputs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.calc-slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calc-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calc-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.calc-value-display {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brand-green-light);
+  background: var(--brand-green-dim);
+  border: 1px solid var(--brand-green-border);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.calc-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  transition: background var(--transition-fast);
+}
+
+.calc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--brand-green);
+  border: 3px solid var(--brand-green);
+  transition: transform var(--transition-fast);
+}
+
+.calc-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.roi-results-card {
+  background: linear-gradient(180deg, #0e121b 0%, #06080d 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.roi-results-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grad-brand);
+}
+
+.roi-metric-item {
+  margin-bottom: 28px;
+}
+
+.roi-metric-label {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.roi-metric-value {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  font-family: var(--font-mono);
+  letter-spacing: -0.03em;
+}
+
+.roi-metric-value.brand {
+  color: var(--brand-green-light);
+  text-shadow: 0 0 25px rgba(0, 200, 83, 0.4);
+}
+
+.roi-disclaimer {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  line-height: 1.5;
+  margin-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Ecosystem Integrations
+   -------------------------------------------------------------------------- */
+.integrations-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.integration-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px 16px;
+  text-align: center;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.integration-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--brand-green);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 200, 83, 0.15);
+}
+
+.integration-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--brand-green-light);
+}
+
+.integration-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.integration-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.integration-category {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+  .hero-layout { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .hero-cta-group { justify-content: center; }
+  .roi-calculator-container { grid-template-columns: 1fr; padding: 30px; }
+  .workforce-grid { grid-template-columns: repeat(3, 1fr); }
+  .agent-detail-panel { grid-template-columns: 1fr; }
+  .pipeline-steps-track { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .workforce-grid { grid-template-columns: repeat(2, 1fr); }
+  .pipeline-steps-track { grid-template-columns: 1fr; }
+  .roi-calculator-container { padding: 20px; }
+  
+  .hero-console-card {
+    padding: 18px 16px;
+    max-width: 100%;
+  }
+
+  .console-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .console-tab-btn {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    flex-shrink: 0;
+  }
+
+  .pipeline-step-card {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .step-icon-wrap {
+    width: 30px;
+    height: 30px;
+  }
+
+  .step-icon-wrap svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .telemetry-mini-pill {
+    padding: 6px 8px;
+  }
+
+  .telemetry-mini-val {
+    font-size: 0.85rem;
+  }
+
+  .telemetry-mini-lbl {
+    font-size: 0.62rem;
+  }
+}
+
